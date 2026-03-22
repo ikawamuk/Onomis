@@ -4,7 +4,7 @@
 ブラウザで動くOミノしか落ちてこないテトリス。
 
 ## 詳細ドキュメント
-instructions/architecture.md
+.github/instructions/architecture.md
 
 ## 絶対に守ること
 変更は小さい単位で。
