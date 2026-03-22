@@ -3,9 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello</title>
+    <title>Omino Tetris</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <div class="app">
+      <main class="game-layout">
+        <section class="left-panel panel">
+          <h2>HOLD</h2>
+          <div class="preview-box" aria-label="Hold piece preview">
+            <div class="omino"></div>
+          </div>
+
+          <h2>SCORE</h2>
+          <div class="score-box" aria-label="Current score">000000</div>
+        </section>
+
+        <section class="field-panel panel" aria-label="Game field">
+          <div class="field" role="img" aria-label="10 by 20 game grid"></div>
+        </section>
+
+        <section class="right-panel panel">
+          <h2>NEXT</h2>
+          <div class="preview-stack" aria-label="Next pieces preview">
+            <div class="preview-box"><div class="omino"></div></div>
+            <div class="preview-box"><div class="omino"></div></div>
+            <div class="preview-box"><div class="omino"></div></div>
+          </div>
+        </section>
+      </main>
+
+      <section class="controls" aria-label="Key controls">
+        <h2>キー操作</h2>
+        <p>A: 左移動 / D: 右移動 / S: ソフトドロップ / W: ハードドロップ</p>
+        <p>Q: 左回転 / E: 右回転 / Space: ホールド</p>
+      </section>
+    </div>
+    <script src="main.js"></script>
   </body>
 </html>

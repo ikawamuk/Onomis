@@ -1,0 +1,128 @@
+:root {
+  --cell: 24px;
+  --bg: #dcdcdc;
+  --ink: #202020;
+  --grid: #3a3a3a;
+  --field: #1a1a1a;
+  --omino: #ffd400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+}
+
+.app {
+  width: min(860px, 94vw);
+  display: grid;
+  gap: 18px;
+}
+
+.game-layout {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 170px 1fr 170px;
+  gap: 16px;
+  align-items: start;
+}
+
+.panel {
+  padding: 8px;
+}
+
+h1,
+h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.left-panel,
+.right-panel {
+  display: grid;
+  gap: 10px;
+}
+
+.preview-stack {
+  display: grid;
+  gap: 8px;
+}
+
+.preview-box {
+  width: 88px;
+  height: 88px;
+  border: 4px solid #cfcfcf;
+  background: var(--field);
+  display: grid;
+  place-items: center;
+}
+
+.omino {
+  width: 40px;
+  height: 40px;
+  background:
+    linear-gradient(to right, #7a6700 1px, transparent 1px),
+    linear-gradient(to bottom, #7a6700 1px, transparent 1px),
+    var(--omino);
+  background-size: 20px 20px;
+}
+
+.score-box {
+  width: 100%;
+  max-width: 140px;
+  height: 56px;
+  border: 4px solid #cfcfcf;
+  background: #111;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  padding: 0 6px;
+  font-size: 24px;
+  line-height: 1;
+  font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", "Times New Roman", serif;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.field-panel {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.field {
+  width: calc(var(--cell) * 10);
+  height: calc(var(--cell) * 20);
+  border: 3px solid #2a2a2a;
+  background-color: var(--field);
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: var(--cell) var(--cell);
+}
+
+.controls {
+  width: 100%;
+  border-top: 2px solid #b9b9b9;
+  padding-top: 10px;
+}
+
+.controls h2 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.controls p {
+  margin: 4px 0;
+  font-size: 15px;
+}
+
