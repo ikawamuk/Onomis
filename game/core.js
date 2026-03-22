@@ -75,6 +75,51 @@ export function softStep() {
   return true;
 }
 
+export function clearLines() {
+  let clearedLines = 0;
+
+  for (let y = ROWS - 1; y >= 0; y--) {
+    let isFull = true;
+
+    // 行が埋まっているかチェック
+    for (let x = 0; x < COLS; x++) {
+      if (state.board[y][x] === 0) {
+        isFull = false;
+        break;
+      }
+    }
+
+    if (!isFull) {
+      continue;
+    }
+
+    // 埋まった行より上のすべての行を1行下げる
+    for (let row = y; row > 0; row--) {
+      for (let x = 0; x < COLS; x++) {
+        state.board[row][x] = state.board[row - 1][x];
+      }
+    }
+
+    // 一番上の行をクリア
+    for (let x = 0; x < COLS; x++) {
+      state.board[0][x] = 0;
+    }
+
+    clearedLines++;
+    y++; // 同じyをもう一度チェック
+  }
+
+  return clearedLines;
+}
+
+export function addScore(clearedLines) {
+  if (clearedLines === 1) {
+    state.score += 100;
+  } else if (clearedLines === 2) {
+    state.score += 300;
+  }
+}
+
 export function lockPiece() {
   if (!state.currentMino) return;
 
@@ -93,6 +138,9 @@ export function lockPiece() {
   state.lockTimer = 0;
   state.dropTimer = 0;
   state.canHold = true;
+
+  const clearedLines = clearLines();
+  addScore(clearedLines);
   spawnPiece();
 }
 

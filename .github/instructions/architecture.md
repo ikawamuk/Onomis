@@ -51,7 +51,6 @@ o-tetris/
 - `score`: 現在スコア
 - `dropTimer`: 落下間隔の経過時間（ms）
 - `lockTimer`: 接地猶予の経過時間（ms）、満了で `lockPiece()`
-
 ## 主処理フロー
 1. Start押下で `initGame()` を実行し `playing` へ遷移。
 2. `requestAnimationFrame` で `update(deltaMs)` を継続実行。
@@ -77,7 +76,7 @@ o-tetris/
 - `move(dx, dy)`: 現在ミノ移動
 - `hardDrop()`: 着地位置まで移動して即固定
 - `lockPiece()`: 盤面に固定して `canHold` をリセット
-- `clearLines()`: 行消去数を返す
+- `clearLines()`: 一列が埋まった行を削除し、そこより上の段をすべて一下に落とす。行消去数を返す。
 - `addScore(clearedLines)`: 1行100点、2行300点
 - `hold()`: ホールド入れ替え処理
 - `update(deltaMs)`: 時間進行と状態更新
