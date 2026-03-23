@@ -3,7 +3,13 @@ import {
   KEY_REPEAT_DELAY_MS,
   KEY_REPEAT_INTERVAL_MS
 } from "./constants.js";
-import { hardDrop, initGame, moveHorizontal, softStep } from "./core.js";
+import {
+  hardDrop,
+  initGame,
+  moveHorizontal,
+  rotateCurrentMino,
+  softStep
+} from "./core.js";
 import { render } from "./render.js";
 import { state } from "./state.js";
 
@@ -64,6 +70,8 @@ export function bindInput() {
   };
 
   const oneShotActions = {
+    q: () => rotateCurrentMino(),
+    e: () => rotateCurrentMino(),
     w: () => hardDrop()
   };
 

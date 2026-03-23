@@ -91,6 +91,16 @@ export function hardDrop() {
   lockPiece();
 }
 
+export function rotateCurrentMino() {
+  if (!state.currentMino) return;
+
+  // Oミノは見た目が変わらないため、回転成功時の猶予リセットのみ行う
+  if (isGrounded() && state.currentMino.lockResetCount < MAX_LOCK_RESETS) {
+    state.lockTimer = 0;
+    state.currentMino.lockResetCount += 1;
+  }
+}
+
 export function clearLines() {
   let clearedLines = 0;
 
