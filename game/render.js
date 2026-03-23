@@ -32,6 +32,8 @@ export function render() {
   const scoreEl = document.querySelector(".score-box");
   if (!fieldEl) return;
 
+  const clearingRows = new Set(state.lineClearRows);
+
   fieldEl.innerHTML = "";
   fieldEl.style.display = "grid";
   fieldEl.style.gridTemplateColumns = `repeat(${COLS}, 1fr)`;
@@ -41,9 +43,14 @@ export function render() {
   for (let y = 0; y < ROWS; y += 1) {
     for (let x = 0; x < COLS; x += 1) {
       const cell = document.createElement("div");
+      const isClearingRow = clearingRows.has(y);
       const occupied = state.board[y][x] === 1 || isCurrentMinoCell(x, y);
       cell.style.border = "1px solid #313131";
-      cell.style.backgroundColor = occupied ? "#ffd400" : "#1a1a1a";
+      cell.style.backgroundColor = isClearingRow
+        ? "#fff2a8"
+        : occupied
+          ? "#ffd400"
+          : "#1a1a1a";
       fragment.appendChild(cell);
     }
   }

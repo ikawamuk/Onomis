@@ -13,5 +13,7 @@ export const state = {
   canHold: true,
   score: 0,
   dropTimer: 0,
-  lockTimer: 0
+  lockTimer: 0,
+  lineClearRows: [],
+  lineClearTimer: 0
 };

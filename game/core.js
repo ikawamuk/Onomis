@@ -1,6 +1,7 @@
 import {
   COLS,
   GAME_STATE,
+  LINE_CLEAR_DELAY_MS,
   LOCK_DELAY_MS,
   MAX_LOCK_RESETS,
   NATURAL_DROP_INTERVAL_MS,
@@ -127,6 +128,26 @@ export function clearLines() {
   return clearedLines;
 }
 
+function getFilledRows() {
+  const filledRows = [];
+
+  for (let y = 0; y < ROWS; y++) {
+    let isFull = true;
+    for (let x = 0; x < COLS; x++) {
+      if (state.board[y][x] === 0) {
+        isFull = false;
+        break;
+      }
+    }
+
+    if (isFull) {
+      filledRows.push(y);
+    }
+  }
+
+  return filledRows;
+}
+
 export function addScore(clearedLines) {
   if (clearedLines === 1) {
     state.score += 100;
@@ -154,8 +175,13 @@ export function lockPiece() {
   state.dropTimer = 0;
   state.canHold = true;
 
-  const clearedLines = clearLines();
-  addScore(clearedLines);
+  const filledRows = getFilledRows();
+  if (filledRows.length > 0) {
+    state.lineClearRows = filledRows;
+    state.lineClearTimer = LINE_CLEAR_DELAY_MS;
+    return;
+  }
+
   spawnPiece();
 }
 
@@ -169,12 +195,26 @@ export function initGame() {
   state.score = 0;
   state.dropTimer = 0;
   state.lockTimer = 0;
+  state.lineClearRows = [];
+  state.lineClearTimer = 0;
 
   spawnPiece();
 }
 
 export function update(deltaMs) {
   if (state.gameState !== GAME_STATE.PLAYING) return;
+
+  if (state.lineClearTimer > 0) {
+    state.lineClearTimer -= deltaMs;
+    if (state.lineClearTimer <= 0) {
+      state.lineClearTimer = 0;
+      const clearedLines = clearLines();
+      addScore(clearedLines);
+      state.lineClearRows = [];
+      spawnPiece();
+    }
+    return;
+  }
 
   if (!state.currentMino) return;
 
