@@ -4,6 +4,7 @@ import {
   KEY_REPEAT_INTERVAL_MS
 } from "./constants.js";
 import {
+  holdCurrentMino,
   hardDrop,
   initGame,
   moveHorizontal,
@@ -70,6 +71,7 @@ export function bindInput() {
   };
 
   const oneShotActions = {
+    " ": () => holdCurrentMino(),
     q: () => rotateCurrentMino(),
     e: () => rotateCurrentMino(),
     w: () => hardDrop()

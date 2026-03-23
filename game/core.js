@@ -101,6 +101,34 @@ export function rotateCurrentMino() {
   }
 }
 
+export function holdCurrentMino() {
+  if (!state.currentMino) return;
+  if (!state.canHold) return;
+
+  const held = state.holdPiece;
+  state.holdPiece = "O";
+  state.canHold = false;
+  state.lockTimer = 0;
+  state.dropTimer = 0;
+
+  // 最初のホールドは空なので、現在ミノを退避して次ミノを出す
+  if (!held) {
+    state.currentMino = null;
+    spawnPiece();
+    return;
+  }
+
+  // Oミノのみだが、交換時は出現位置から再スタートさせる
+  const swapped = { x: SPAWN_X, y: SPAWN_Y, lockResetCount: 0 };
+  if (!canPlaceMino(swapped.x, swapped.y)) {
+    state.gameState = GAME_STATE.GAMEOVER;
+    state.currentMino = null;
+    return;
+  }
+
+  state.currentMino = swapped;
+}
+
 export function clearLines() {
   let clearedLines = 0;
 

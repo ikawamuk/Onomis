@@ -27,6 +27,20 @@ export function syncStartButton() {
     state.gameState === GAME_STATE.GAMEOVER ? "RESTART" : "START";
 }
 
+function syncHoldPreview() {
+  const holdPreviewEl = document.querySelector(".left-panel .preview-box");
+  if (!holdPreviewEl) return;
+
+  holdPreviewEl.innerHTML = "";
+  if (!state.holdPiece) {
+    return;
+  }
+
+  const omino = document.createElement("div");
+  omino.className = "omino";
+  holdPreviewEl.appendChild(omino);
+}
+
 export function render() {
   const fieldEl = document.querySelector(".field");
   const scoreEl = document.querySelector(".score-box");
@@ -61,5 +75,6 @@ export function render() {
     scoreEl.textContent = String(state.score).padStart(6, "0");
   }
 
+  syncHoldPreview();
   syncStartButton();
 }
