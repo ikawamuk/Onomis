@@ -27,6 +27,18 @@ body {
   gap: 18px;
 }
 
+.site-title {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+}
+
+.title-gothic {
+  font-family: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+}
+
 .game-layout {
   width: 100%;
   display: grid;
