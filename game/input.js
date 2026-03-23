@@ -3,7 +3,7 @@ import {
   KEY_REPEAT_DELAY_MS,
   KEY_REPEAT_INTERVAL_MS
 } from "./constants.js";
-import { initGame, moveHorizontal, softStep } from "./core.js";
+import { hardDrop, initGame, moveHorizontal, softStep } from "./core.js";
 import { render } from "./render.js";
 import { state } from "./state.js";
 
@@ -57,30 +57,45 @@ export function bindStartButton() {
 }
 
 export function bindInput() {
-  const actions = {
+  const repeatActions = {
     a: () => moveHorizontal(-1),
     d: () => moveHorizontal(1),
     s: () => softStep()
+  };
+
+  const oneShotActions = {
+    w: () => hardDrop()
   };
 
   document.addEventListener("keydown", (event) => {
     if (state.gameState !== GAME_STATE.PLAYING) return;
 
     const key = event.key.toLowerCase();
-    const action = actions[key];
-    if (!action) return;
+    const repeatAction = repeatActions[key];
+    const oneShotAction = oneShotActions[key];
 
-    // OS側のリピートは無視して、ゲーム内リピートを使う
+    if (repeatAction) {
+      // OS側のリピートは無視して、ゲーム内リピートを使う
+      if (event.repeat) {
+        return;
+      }
+
+      startRepeat(key, repeatAction);
+      return;
+    }
+
+    if (!oneShotAction) return;
+
     if (event.repeat) {
       return;
     }
 
-    startRepeat(key, action);
+    oneShotAction();
   });
 
   document.addEventListener("keyup", (event) => {
     const key = event.key.toLowerCase();
-    if (!actions[key]) return;
+    if (!repeatActions[key]) return;
 
     stopRepeat(key);
   });

@@ -75,6 +75,21 @@ export function softStep() {
   return true;
 }
 
+export function hardDrop() {
+  if (!state.currentMino) return;
+
+  while (!isGrounded()) {
+    const moved = softStep();
+    if (!moved) {
+      break;
+    }
+  }
+
+  // ハードドロップは接地猶予なしで即固定
+  state.lockTimer = 0;
+  lockPiece();
+}
+
 export function clearLines() {
   let clearedLines = 0;
 
@@ -160,6 +175,7 @@ export function initGame() {
 
 export function update(deltaMs) {
   if (state.gameState !== GAME_STATE.PLAYING) return;
+
   if (!state.currentMino) return;
 
   if (isGrounded()) {
