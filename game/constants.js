@@ -11,6 +11,8 @@ export const O_MINO_SHAPE = [
 export const SPAWN_X = Math.floor(COLS / 2) - 1;
 export const SPAWN_Y = 0;
 export const NATURAL_DROP_INTERVAL_MS = 700;
+export const KEY_REPEAT_DELAY_MS = 150;
+export const KEY_REPEAT_INTERVAL_MS = 50;
 export const LOCK_DELAY_MS = 500;
 export const MAX_LOCK_RESETS = 15;
 
